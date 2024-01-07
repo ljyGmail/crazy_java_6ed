@@ -1,0 +1,1 @@
+cd ../target && find . -type f -name "*.class" | sed -e 's@^./@@' -e 's@/@.@g' -e 's@.class$@@' -e 's@^@java @' | bash
