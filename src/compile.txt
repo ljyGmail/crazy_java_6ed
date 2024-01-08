@@ -1,1 +1,0 @@
-javac $(find . -type f -name "*.java") -d ../target
