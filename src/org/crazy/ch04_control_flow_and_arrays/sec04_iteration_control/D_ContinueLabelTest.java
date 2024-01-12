@@ -1,6 +1,6 @@
 package org.crazy.ch04_control_flow_and_arrays.sec04_iteration_control;
 
-public class D_ContinueLabel {
+public class D_ContinueLabelTest {
     public static void main(String[] args) {
         // 外层循环
         outer:

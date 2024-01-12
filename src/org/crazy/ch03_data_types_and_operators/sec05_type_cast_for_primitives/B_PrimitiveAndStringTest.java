@@ -1,6 +1,6 @@
 package org.crazy.ch03_data_types_and_operators.sec05_type_cast_for_primitives;
 
-public class B_PrimitiveAndString {
+public class B_PrimitiveAndStringTest {
     public static void main(String[] args) {
         // 下面的代码是错误的，因为5是一个整数，不能被直接赋给一个字符串
         // String str1 = 5;

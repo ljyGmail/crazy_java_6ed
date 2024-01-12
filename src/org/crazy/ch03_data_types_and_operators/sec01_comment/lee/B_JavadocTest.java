@@ -10,7 +10,7 @@ package org.crazy.ch03_data_types_and_operators.sec01_comment.lee;
  * @author Liang JinYong ljy@164.com 公众号: fkbooks
  * @version 6.0
  */
-public class JavadocTest {
+public class B_JavadocTest {
     /**
      * 简单测试成员变量
      */

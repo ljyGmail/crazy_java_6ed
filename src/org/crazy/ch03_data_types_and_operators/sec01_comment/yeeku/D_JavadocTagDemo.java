@@ -10,7 +10,7 @@ package org.crazy.ch03_data_types_and_operators.sec01_comment.yeeku;
 * @author Liang JinYong ljy@164.com 公众号: fkbooks
 * @version 6.0
 */
-public class JavadocTagTest {
+public class D_JavadocTagDemo {
     /**
      * 一个得到打招呼字符串的方法
      * @param name 该参数指定向谁打招呼

@@ -6,7 +6,7 @@ import java.util.function.IntUnaryOperator;
 import java.util.stream.IntStream;
 import java.util.function.IntPredicate;
 
-public class F_ArraysTest2 {
+public class F_Arrays2Test {
     public static void main(String[] args) {
         var arr1 = new int[] {3, -4, 25, 16, 30, 18};
         // 对数组arr1进行并发排序

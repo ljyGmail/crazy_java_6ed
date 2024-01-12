@@ -1,6 +1,6 @@
 package org.crazy.ch04_control_flow_and_arrays.sec06_array_deep_dive;
 
-public class A_ArrayInRam {
+public class A_ArrayInRamTest {
     public static void main(String[] args) {
         // 定义并初始化数组，使用静态初始化
         int[] a = {5, 7, 20};

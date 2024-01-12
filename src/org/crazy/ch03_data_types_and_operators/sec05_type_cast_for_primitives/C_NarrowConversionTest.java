@@ -1,6 +1,6 @@
 package org.crazy.ch03_data_types_and_operators.sec05_type_cast_for_primitives;
 
-public class C_NarrowConversion {
+public class C_NarrowConversionTest {
     public static void main(String[] args) {
         var iValue = 233;
         // 强制把一个int类型的值转换为byte类型的值

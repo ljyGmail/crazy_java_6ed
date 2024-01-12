@@ -1,6 +1,6 @@
 package org.crazy.ch04_control_flow_and_arrays.sec01_branch_statements;
 
-public class C_IfErrorTest2 {
+public class C_IfError2Test {
     public static void main(String[] args) {
         var age = 45;
         if (age > 20) {

@@ -11,7 +11,7 @@ package org.crazy.ch03_data_types_and_operators.sec01_comment.yeeku;
 * @version 6.0
 */
 
-public class Test {
+public class C_Demo {
     /**
      * 简单测试成员变量
      */
@@ -19,6 +19,6 @@ public class Test {
     /**
      * Test类的测试构造器
      */
-    public  Test() {
+    public  C_Demo() {
     }
 }

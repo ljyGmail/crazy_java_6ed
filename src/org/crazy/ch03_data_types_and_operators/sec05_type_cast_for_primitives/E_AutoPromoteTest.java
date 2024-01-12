@@ -1,6 +1,6 @@
 package org.crazy.ch03_data_types_and_operators.sec05_type_cast_for_primitives;
 
-public class E_AutoPromote {
+public class E_AutoPromoteTest {
     public static void main(String[] args) {
         // 定义一个short类型的变量
         short sValue = 5;

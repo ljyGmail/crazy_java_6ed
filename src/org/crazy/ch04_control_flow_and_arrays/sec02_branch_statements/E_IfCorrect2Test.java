@@ -1,6 +1,6 @@
 package org.crazy.ch04_control_flow_and_arrays.sec01_branch_statements;
 
-public class E_IfCorrectTest2 {
+public class E_IfCorrect2Test {
     public static void main(String[] args) {
         var age = 45;
         if (age > 60) {

@@ -1,6 +1,6 @@
 package org.crazy.ch04_control_flow_and_arrays.sec04_iteration_control;
 
-public class B_BreakLabel {
+public class B_BreakLabelTest {
     public static void main(String[] args) {
         // 外层循环: outer作为标识符
         outer:

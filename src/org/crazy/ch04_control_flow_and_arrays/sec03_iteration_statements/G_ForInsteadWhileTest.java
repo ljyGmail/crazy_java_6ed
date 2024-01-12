@@ -1,6 +1,6 @@
 package org.crazy.ch04_control_flow_and_arrays.sec03_iteration_statements;
 
-public class G_ForInsteadWhile {
+public class G_ForInsteadWhileTest {
     public static void main(String[] args) {
         // 把for循环的初始化条件提出来独立定义
         var count = 0;

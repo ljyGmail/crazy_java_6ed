@@ -1,6 +1,6 @@
 package org.crazy.ch03_data_types_and_operators.sec05_type_cast_for_primitives;
 
-public class A_AutoConversion {
+public class A_AutoConversionTest {
     public static void main(String[] args) {
         int a = 6;
         // int类型可以自动类型转换为float类型
