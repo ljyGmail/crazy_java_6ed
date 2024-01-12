@@ -1,4 +1,4 @@
-package org.crazy.ch04_control_flow_and_arrays.sec01_branch_statements;
+package org.crazy.ch04_control_flow_and_arrays.sec02_branch_statements;
 
 public class B_IfErrorTest {
     public static void main(String[] args) {
