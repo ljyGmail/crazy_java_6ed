@@ -21,5 +21,9 @@ public class B_PersonTest {
         p.say("Java语言很简单，学习很容易！");
         // 直接输出p的name实例变量，将输出 周华健
         System.out.println(p.name);
+
+        // 将p变量的值赋给p2变量
+        var p2 = p;
+        p2.say("最真的梦");
     }
 }
