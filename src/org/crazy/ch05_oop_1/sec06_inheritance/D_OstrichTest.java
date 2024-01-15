@@ -16,11 +16,19 @@ public class D_OstrichTest extends C_Bird {
         System.out.println("我只能在地上奔跑...");
     }
 
+    public void callOverridednMethod() {
+        // 在子类的方法中通过super显式调用父类中被覆盖的方法
+        super.fly();
+    }
+
     public static void main(String[] args) {
         // 创建OstrichTest对象
         var os = new D_OstrichTest();
         // 执行OstrichTest对象的fly()方法，将输出"我只能在地上奔跑..."
         os.fly();
+
+        // 调用父类中的fly()方法
+        os.callOverridednMethod();
     }
 }
 
