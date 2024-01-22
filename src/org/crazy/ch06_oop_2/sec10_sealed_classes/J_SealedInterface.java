@@ -2,7 +2,7 @@ package org.crazy.ch06_oop_2.sec10_sealed_classes;
 
 // 定义密封接口
 sealed interface J_Celestial {
-    void fly():
+    void fly();
 }
 
 // 密封接口的子接口，只能用sealed或non-sealed修饰
