@@ -16,9 +16,11 @@ public class B_ObjectsTest {
                     // "obj参数不能是null"));
 
         // Objects.requireNonNull()方法主要用来对方法形参进行输入校验
+        /*
         public Foo(Bar bar) {
             // 校验bar参数，如果bar参数为null，则将引发异常，否则，this.bar被赋值为bar参数
             this.bar = Objects.requireNonNull(bar);
         }
+        */
     }
 }
