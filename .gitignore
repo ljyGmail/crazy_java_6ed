@@ -1,4 +1,5 @@
 target/*
-!target/mess_*
+!target/mess_*.properties
+!target/myMess_*.propeties
 
 data/ch07_commonly_used_classes/props.txt
