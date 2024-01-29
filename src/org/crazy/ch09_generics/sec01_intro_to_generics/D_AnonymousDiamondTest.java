@@ -1,7 +1,5 @@
 package org.crazy.ch09_generics.sec01_intro_to_generics;
 
-import java.util.Date;
-
 interface D_Foo<T> {
     void test(T t);
 }

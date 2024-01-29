@@ -1,7 +1,5 @@
 package org.crazy.ch09_generics.sec02_deep_dive_into_generics;
 
-import org.crazy.ch04_control_flow_and_arrays.sec04_iteration_control.D_ContinueLabelTest;
-
 public class A_AppleTest<T> {
     // 使用T类型定义实例变量
     private T info;
