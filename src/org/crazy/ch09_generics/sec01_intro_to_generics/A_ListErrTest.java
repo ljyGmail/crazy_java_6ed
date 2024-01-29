@@ -12,5 +12,6 @@ public class A_ListErrTest {
         strList.add(5);
         // 下面代码引发ClassCaseException
         // strList.forEach(str -> System.out.println(((String) str).length()));
+        System.out.println("该示例表明向没有泛型声明的集合里放入元素，取出元素后的操作可能引发类型转换异常");
     }
 }
