@@ -4,3 +4,4 @@ target/*
 !target/logMess_*.properties
 
 data/ch07_commonly_used_classes/props.txt
+data/ch10_exception_handling/[ab].txt
