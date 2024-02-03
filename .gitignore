@@ -5,3 +5,4 @@ target/*
 
 data/ch07_commonly_used_classes/props.txt
 data/ch10_exception_handling/[ab].txt
+data/ch11_awt/[0-9]*.jpg
