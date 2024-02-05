@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.Random;
 
 public class A_SimpleDrawTest {
@@ -44,6 +46,12 @@ public class A_SimpleDrawTest {
 
         f.add(drawArea);
         f.add(p, BorderLayout.SOUTH);
+
+        f.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
 
         f.pack();
         f.setVisible(true);
