@@ -32,7 +32,7 @@ public class A_SwingComponentTest {
     JFrame f = new JFrame("Swing基本组件");
     // 定义一个按钮，并为之指定图标
     Icon okIcon = new ImageIcon("../data/ch12_swing/ico/ok.png");
-    JButton ok = new JButton("确定");
+    JButton ok = new JButton("确定", okIcon);
     // 定义一个单选按钮，初始处于选中状态
     JRadioButton male = new JRadioButton("男", true);
     // 定义一个单选按钮，初始处于未选中状态
