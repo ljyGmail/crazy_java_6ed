@@ -1,14 +1,19 @@
 package org.crazy.ch12_swing.sec05_new_features_in_java7;
 
 import java.awt.AlphaComposite;
+import java.awt.AWTEvent;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.awt.GradientPaint;
-import java.awt.Graphics2D;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.awt.Point;
+import java.awt.RadialGradientPaint;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -18,6 +23,7 @@ import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.plaf.LayerUI;
+import javax.swing.SwingUtilities;
 
 class A_FirstLayerUI extends LayerUI<JComponent> {
 
@@ -82,6 +88,67 @@ class A_BlurLayerUI extends LayerUI<JComponent> {
     }
 }
 
+class A_SpotlightLayerUI extends LayerUI<JComponent> {
+    private boolean active;
+    private int cx, cy;
+
+    public void installUI(JComponent c) {
+        super.installUI(c);
+        var layer = (JLayer) c;
+        // 设置JLayer可以响应鼠标事件和鼠标动作事件
+        layer.setLayerEventMask(AWTEvent.MOUSE_EVENT_MASK
+            | AWTEvent.MOUSE_MOTION_EVENT_MASK);
+    }
+
+    public void uninstallUI(JComponent c) {
+        var layer = (JLayer) c;
+        // 设置JLayer不响应任何事件
+        layer.setLayerEventMask(0);
+        super.uninstallUI(c);
+    }
+
+    public void paint(Graphics g, JComponent c) {
+        var g2 = (Graphics2D) g.create();
+        super.paint(g2, c);
+        // 如果处于激活状态
+        if (active) {
+            // 定义一个cx、cy位置的点
+            Point2D center = new Point2D.Float(cx, cy);
+            float radius = 72;
+            float[] dist = {0.0f, 1.0f};
+            Color[] colors = {Color.YELLOW, Color.BLACK};
+            // 以center为中心、colors为颜色数组创建环形渐变
+            var p = new RadialGradientPaint(center, radius, dist, colors);
+            g2.setPaint(p);
+            // 设置渐变效果
+            g2.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, .6f));
+            // 绘制矩形
+            g2.fillRect(0, 0, c.getWidth(), c.getHeight());
+        }
+        g2.dispose();
+    }
+
+    // 处理鼠标事件的方法
+    public void processMouseEvent(MouseEvent e, JLayer layer) {
+        if (e.getID() == MouseEvent.MOUSE_ENTERED)
+            active = true;
+        if (e.getID() == MouseEvent.MOUSE_EXITED)
+            active = false;
+        layer.repaint();
+    }
+
+    // 处理鼠标动作事件的方法
+    public void processMouseMotionEvent(MouseEvent e, JLayer layer) {
+        Point p = SwingUtilities.convertPoint(
+            e.getComponent(), e.getPoint(), layer);
+        // 获取鼠标动作事件发生点的坐标
+        cx = p.x;
+        cy = p.y;
+        layer.repaint();
+    }
+}
+
 public class A_JLayerTest {
 
     public void init() {
@@ -109,7 +176,8 @@ public class A_JLayerTest {
 
         // 创建LayerUI对象
         // LayerUI<JComponent> layerUI = new A_FirstLayerUI();
-        LayerUI<JComponent> layerUI = new A_BlurLayerUI();
+        // LayerUI<JComponent> layerUI = new A_BlurLayerUI();
+        LayerUI<JComponent> layerUI = new A_SpotlightLayerUI();
 
         // 使用layerUI来装饰指定的JPanel组件
         var layer = new JLayer<JComponent>(p, layerUI);
