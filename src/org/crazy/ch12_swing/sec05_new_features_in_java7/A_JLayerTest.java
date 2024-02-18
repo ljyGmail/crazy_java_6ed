@@ -1,19 +1,23 @@
 package org.crazy.ch12_swing.sec05_new_features_in_java7;
 
-import java.awt.AlphaComposite;
 import java.awt.AWTEvent;
+import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Composite;
+import java.awt.GradientPaint;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.RadialGradientPaint;
+import java.awt.RenderingHints;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Point2D;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
-import java.awt.Point;
-import java.awt.RadialGradientPaint;
+import java.beans.PropertyChangeEvent;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -22,8 +26,9 @@ import javax.swing.JFrame;
 import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.plaf.LayerUI;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
+import javax.swing.plaf.LayerUI;
 
 class A_FirstLayerUI extends LayerUI<JComponent> {
 
@@ -149,6 +154,95 @@ class A_SpotlightLayerUI extends LayerUI<JComponent> {
     }
 }
 
+class A_WaitingLayerUI extends LayerUI<JComponent> {
+    private boolean isRunning;
+    private Timer timer;
+    // 记录转过的角度
+    private int angle;
+
+    public void paint(Graphics g, JComponent c) {
+        super.paint(g, c);
+        int w = c.getWidth();
+        int h = c.getHeight();
+        // 已经停止运行，直接返回
+        if (!isRunning) {
+            return;
+        }
+
+        var g2 = (Graphics2D) g.create();
+        Composite urComposite = g2.getComposite();
+        g2.setComposite(AlphaComposite.getInstance(
+            AlphaComposite.SRC_OVER, .5f));
+        // 填充矩形
+        g2.fillRect(0, 0, w, h);
+        g2.setComposite(urComposite);
+        // -----下面的代码开始绘制移动中的"齿轮"-----
+        // 计算得到宽、高中较小值的1/5
+        var s = Math.min(w, h) / 5;
+        var cx = w / 2;
+        var cy = h / 2;
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+            RenderingHints.VALUE_ANTIALIAS_ON);
+        // 设置笔触
+        g2.setStroke(new BasicStroke(s / 2,
+            BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        g2.setPaint(Color.BLUE);
+        // 画笔绕被装饰组件的中心转过angle度
+        g2.rotate(Math.PI * angle / 180, cx, cy);
+        // 循环绘制12条线条，形成"齿轮"
+        for (var i = 0; i < 12; i++) {
+            float scale = (11.0f - (float) i) / 11.0f;
+            g2.drawLine(cx + s, cy, cx + s * 2, cy);
+            g2.rotate(-Math.PI / 6, cx, cy);
+            g2.setComposite(AlphaComposite.getInstance(
+                AlphaComposite.SRC_OVER, scale));
+        }
+        g2.dispose();
+    }
+
+    // 控制等待(齿轮开始转动)的方法
+    public void start() {
+        // 如果已经在运行中，则直接返回
+        if (isRunning) {
+            return;
+        }
+
+        isRunning = true;
+
+        // 每隔0.1秒重绘一次
+        timer = new Timer(100, e -> {
+            if (isRunning) {
+                // 触发applyPropertyChange()方法，让JLayer重绘
+                // 在这行代码中，后面的两个参数没有意义
+                firePropertyChange("crazyitFlag", 0, 1);
+                // 角度加6
+                angle += 6;
+                // 到达360这个角度后 再从0开始
+                if (angle >= 360) {
+                    angle = 0;
+                }
+            }
+        });
+        timer.start();
+    }
+
+    // 控制停止等待(齿轮停止移动)的方法
+    public void stop() {
+        isRunning = false;
+        // 最后通知JLayer重绘一次，清除曾经绘制的图形
+        firePropertyChange("crazyitFlag", 0, 1);
+        timer.stop();
+    }
+
+    public void applyPropertyChange(PropertyChangeEvent pce, 
+        JLayer layer) {
+        // 控制JLayer重绘
+        if (pce.getPropertyName().equals("crazyitFlag")) {
+            layer.repaint();
+        }
+    }
+}
+
 public class A_JLayerTest {
 
     public void init() {
@@ -177,7 +271,21 @@ public class A_JLayerTest {
         // 创建LayerUI对象
         // LayerUI<JComponent> layerUI = new A_FirstLayerUI();
         // LayerUI<JComponent> layerUI = new A_BlurLayerUI();
-        LayerUI<JComponent> layerUI = new A_SpotlightLayerUI();
+        // LayerUI<JComponent> layerUI = new A_SpotlightLayerUI();
+        var layerUI = new A_WaitingLayerUI();
+
+        // 设置4秒之后执行指定动作，定义layerUI的stop()方法
+        final Timer stopper = new Timer(4000, ae -> layerUI.stop());
+        // 设置stopper定时器只触发一次
+        stopper.setRepeats(false);
+        // 为orderButton绑定事件监听器，单击该按钮时，调用layerUI的start()方法
+        orderButton.addActionListener(ae -> {
+            layerUI.start();
+            // 如果stopper定时器已经停止，则启动它
+            if (!stopper.isRunning()) {
+                stopper.start();
+            }
+        });
 
         // 使用layerUI来装饰指定的JPanel组件
         var layer = new JLayer<JComponent>(p, layerUI);
