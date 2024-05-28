@@ -44,3 +44,17 @@ begin
 end;
 //
 ```
+
+* 创建带有blob列的表用来保存图片
+
+```
+create table img_table
+(
+    img_id int auto_increment primary key ,
+    img_name varchar(255),
+    img_data mediumblob
+);
+
+select *
+from img_table;
+```
