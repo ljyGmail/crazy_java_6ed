@@ -14,7 +14,8 @@ create table student_table
 (
     student_id int auto_increment primary key ,
     student_name varchar(255),
-    java_teacher int references teacher_table(teacher_id)
+    java_teacher int,
+    foreign key (java_teacher) references teacher_table(teacher_id)
 );
 
 insert into teacher_table values (null, "李刚");
